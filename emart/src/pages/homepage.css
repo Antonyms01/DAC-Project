@@ -1,0 +1,54 @@
+ 
+  .main {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+    background-color: #000;
+    color: #fff;
+  }
+  
+  .banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+  }
+  
+  .banner-content {
+    max-width: 50%;
+  }
+  
+  .brand {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .product {
+    font-size: 36px;
+    margin: 10px 0;
+  }
+  
+  .offer {
+    font-size: 24px;
+    margin: 10px 0;
+  }
+  
+  .shop-now {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #000;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+  
+  .banner-image img {
+    max-width: 100%;
+    height: auto;
+  }
+  
