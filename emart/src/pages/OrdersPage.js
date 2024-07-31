@@ -1,8 +1,12 @@
 // src/pages/OrdersPage.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Header';
 
 const OrdersPage = () => {
+
+  // useEffect(()=>{
+  //   fetch();
+  // },[])
   return (
     <div>
       <Header />
