@@ -8,7 +8,7 @@ import ShoppingCartPage from './pages/ShoppingCart';
 import FavoritePage from './pages/FavoritePage';
 import ProductPage from './pages/ProductPage';
 import FetchPage from './pages/FetchPage';
-
+import Categories from './pages/Categories';
 function App() {
   return (
     <Router>
@@ -20,6 +20,7 @@ function App() {
         <Route path="/favorite" element={<FavoritePage />} />
         <Route path="/product" element={<ProductPage />} />
         <Route path="/fetchpage" element={<FetchPage />} />
+        <Route path="/categories" element={<Categories />} />
       </Routes>
     </Router>
   );

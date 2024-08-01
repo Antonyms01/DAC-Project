@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './homepage.css';
+import Categories from './Categories';
 
 const carouselItems = [
   {
@@ -49,6 +50,7 @@ const HomePage = () => {
           ))}
         </Carousel>
       </main>
+      <Categories/>
     </div>
   );
 };
