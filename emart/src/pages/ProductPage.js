@@ -3,7 +3,6 @@ import axios from 'axios';
 import './productpage.css';
 import Header from '../components/Header';
 import LoadingSpinner from '../components/LoadingSpinner';
-import Rating from '../fragments/Rating';
 
 function ProductPage() {
   const [loading, setLoading] = useState(true);
@@ -13,7 +12,7 @@ function ProductPage() {
   useEffect(() => {
     async function fetchProduct() {
       try {
-        const response = await axios.get('http://localhost:8080/products/1');
+        const response = await axios.get('http://localhost:8080/products/9');
         setProduct(response.data);
       } catch (error) {
         console.error("There was an error fetching the product!", error);
@@ -49,17 +48,16 @@ function ProductPage() {
     <div>
       <Header />
       <div className="product-card">
-        <div>
-          <img className='product-image'
-              src={`${process.env.PUBLIC_URL}/assets/images/iphone-14.jpg`} 
-              alt={`Product ${product.name}`} 
-            />
+        <div className="product-image">
+        <img 
+            src={`/path/to/iphone-${product.name}.jpg`} 
+            alt={`Product ${product.name}`} 
+          />
         </div>
         <div className="product-details">
-          <h1 id="product-name">{product.name}</h1>
-          <h2 id="product-description">({product.description}, {selectedStorage} GB)</h2>
-          <p className="fine-print">In Stock {product.stockQuantity}</p>
-          <p><Rating value={product.rating} /></p>
+          <h1>{product.name}</h1>
+          <p>{product.rating} stars</p>
+          <h2>({product.description}, {selectedStorage} GB)</h2>
           <p className="price">₹{product.price}</p>
           <p>Body text for describing why this product is simply a must-buy</p>
           <h3>Storage</h3>
@@ -74,16 +72,16 @@ function ProductPage() {
               </button>
             ))}
           </div>
-          <br />
           <button className="add-to-cart">Add to cart</button>
-          <button className="buy-now">Buy Now</button>
+          <button className="add-to-cart">Buy Now</button>
+          <br />
           <br />
           <div className="delivery">
-            <label>Enter Delivery Pincode</label><br />
+            <label>Enter Delivery Pincode</label>
             <input type="text" placeholder="Enter pincode" />
-            <button className="check">Check</button>
-          </div>        
-          <p className="fine-print">Delivery may take upto 6-7 days depending on pincode</p>
+            <button>Check</button>
+          </div>
+          <p className="fine-print">Text box for additional details or fine print</p>
         </div>
       </div>
     </div>

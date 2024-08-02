@@ -27,7 +27,7 @@ const Header = () => {
         <Link to="/orders" className='linkto-textbutton'>
           Orders
         </Link>
-        <Link to="/cart" >
+        <Link to="/shoppingcart" >
           <IconButton className='linkto-iconbutton'>
             <ShoppingCartIcon />
           </IconButton>
