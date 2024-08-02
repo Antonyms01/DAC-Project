@@ -2,21 +2,24 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './productpage.css';
 import Header from '../components/Header';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 function ProductPage() {
+  const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState(null);
   const [selectedStorage, setSelectedStorage] = useState(128);
 
   useEffect(() => {
     async function fetchProduct() {
       try {
-        const response = await axios.get('http://localhost:8080/products/1');
+        const response = await axios.get('http://localhost:8080/products/9');
         setProduct(response.data);
       } catch (error) {
         console.error("There was an error fetching the product!", error);
+      } finally {
+        setLoading(false); // Move loading false to here to ensure it sets after fetching
       }
     }
-
     fetchProduct();
   }, []);
 
@@ -26,49 +29,59 @@ function ProductPage() {
 
   const storages = [128, 256, 512];
 
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
   if (!product) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Header />
+        <div className="product-card">
+          <p>Product not found.</p>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div>
       <Header />
-      <div className="product-page">
+      <div className="product-card">
         <div className="product-image">
-          <img 
+        <img 
             src={`/path/to/iphone-${product.name}.jpg`} 
             alt={`Product ${product.name}`} 
           />
         </div>
         <div className="product-details">
-          <h2>{product.name} ({product.description}, {selectedStorage} GB)</h2>
+          <h1>{product.name}</h1>
           <p>{product.rating} stars</p>
-          
-          <ul>
-            <li>Bank Offer 5% Cashback on Flipkart Axis Bank Card T&C</li>
-            <li>Bank Offer ₹500 off on Flipkart UPI T&C</li>
-            <li>Special Price Get extra ₹9601 off (price inclusive of cashback/coupon) T&C</li>
-            <li>Freebie Flat ₹1000 off on Cleartrip hotels booking along with 300 supercoins on booking T&C</li>
-          </ul>
-          <p>1 Year Warranty for Phone and 6 Months Warranty for In-Box Accessories Know More</p>
+          <h2>({product.description}, {selectedStorage} GB)</h2>
+          <p className="price">₹{product.price}</p>
+          <p>Body text for describing why this product is simply a must-buy</p>
           <h3>Storage</h3>
           <div className="storage-options">
             {storages.map((storage) => (
-              <button key={storage} onClick={() => handleStorageChange(storage)} className={storage === selectedStorage ? 'active' : ''}>
+              <button
+                key={storage}
+                onClick={() => handleStorageChange(storage)}
+                className={storage === selectedStorage ? 'active' : ''}
+              >
                 {storage} GB
               </button>
             ))}
           </div>
-          <br></br>
-          <button>Add to Cart</button>
-          <button>Buy Now</button>
-          <br></br>
-          <br></br>
+          <button className="add-to-cart">Add to cart</button>
+          <button className="add-to-cart">Buy Now</button>
+          <br />
+          <br />
           <div className="delivery">
             <label>Enter Delivery Pincode</label>
             <input type="text" placeholder="Enter pincode" />
             <button>Check</button>
           </div>
+          <p className="fine-print">Text box for additional details or fine print</p>
         </div>
       </div>
     </div>
