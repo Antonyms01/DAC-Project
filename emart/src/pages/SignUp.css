@@ -1,0 +1,89 @@
+/* Container style */
+.container-fluid {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+  }
+  
+  /* Row style */
+  .row {
+    width: 80%;
+    max-width: 900px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Left column style (Welcome Back section) */
+  .col-md-6 {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  /* Welcome Back text style */
+  .col-md-6:first-child {
+    background-color: #00bfa5;
+    color: white;
+  }
+  
+  /* Sign In button style */
+  .col-md-6:first-child .btn {
+    margin-top: 20px;
+    background-color: white;
+    color: #00bfa5;
+    border: none;
+    font-weight: bold;
+  }
+  
+  .col-md-6:first-child .btn:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Right column style (Create Account section) */
+  .col-md-6:last-child {
+    background-color: white;
+  }
+  
+  /* Social login buttons */
+  .social-login-buttons .btn {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    margin-right: 10px;
+  }
+  
+  .social-login-buttons .btn i {
+    margin: 0;
+  }
+  
+  /* Form field style */
+  .form-control {
+    border-radius: 4px;
+    margin-bottom: 15px;
+    height: 45px;
+    font-size: 16px;
+  }
+  
+  /* Sign Up button style */
+  .btn-success {
+    background-color: #00bfa5;
+    border: none;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+  
+  .btn-success:hover {
+    background-color: #009f8d;
+  }

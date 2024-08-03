@@ -9,12 +9,15 @@ import FavoritePage from './pages/FavoritePage';
 import ProductPage from './pages/ProductPage';
 import FetchPage from './pages/FetchPage';
 import Categories from './pages/Categories';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        {/* <Route path="/signup" element={<SignUpPage />} /> */}
+         <Route path="/signup" element={<SignUpPage />} /> 
         <Route path="/orders" element={<OrdersPage />} />
         <Route path="/shoppingcart" element={<ShoppingCartPage />} />
         <Route path="/favorite" element={<FavoritePage />} />
