@@ -5,27 +5,27 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entities.Order;
-import com.example.demo.repositories.OrderRepository;
+import com.example.demo.entities.Cart;
+import com.example.demo.repositories.CartRepository;
 
 @Service
 public class OrderService {
 
     @Autowired
-    private OrderRepository orderRepository;
+    private CartRepository orderRepository;
 
-    public Order saveOrder(Order order) {
+    public Cart saveOrder(Cart order) {
         return orderRepository.save(order);
     }
 
-    public Order getOrderById(Integer orderId) {
+    public Cart getOrderById(Integer orderId) {
         return orderRepository.findById(orderId).orElse(null);
     }
 
     public void deleteOrder(Integer orderId) {
         orderRepository.deleteById(orderId);
     }
-    public List<Order> getAllOrders() {
+    public List<Cart> getAllOrders() {
         return orderRepository.findAll();
     }
 }

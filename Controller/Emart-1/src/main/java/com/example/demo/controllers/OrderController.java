@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.entities.Order;
+import com.example.demo.entities.Cart;
 import com.example.demo.services.OrderService;
 
 import java.util.List;
@@ -18,9 +18,9 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
+    public ResponseEntity<Cart> createOrder(@RequestBody Cart order) {
         try {
-            Order savedOrder = orderService.saveOrder(order);
+            Cart savedOrder = orderService.saveOrder(order);
             return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -28,8 +28,8 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderById(@PathVariable("id") Integer id) {
-        Order order = orderService.getOrderById(id);
+    public ResponseEntity<Cart> getOrderById(@PathVariable("id") Integer id) {
+        Cart order = orderService.getOrderById(id);
         if (order != null) {
             return new ResponseEntity<>(order, HttpStatus.OK);
         } else {
@@ -48,9 +48,9 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Order>> getAllOrders() {
+    public ResponseEntity<List<Cart>> getAllOrders() {
         try {
-            List<Order> orders = orderService.getAllOrders();
+            List<Cart> orders = orderService.getAllOrders();
             return new ResponseEntity<>(orders, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

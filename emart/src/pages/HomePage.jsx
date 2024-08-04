@@ -1,10 +1,9 @@
-// src/pages/HomePage.js
+// src/pages/HomePage.jsx
 import React from 'react';
 import Header from '../components/Header';
 import { Link } from 'react-router-dom';
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import './homepage.css';
+import { Carousel } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Categories from './Categories';
 
 const carouselItems = [
@@ -32,21 +31,23 @@ const HomePage = () => {
     <div>
       <Header />
       <main className="main">
-        <Carousel showThumbs={false} infiniteLoop useKeyboardArrows autoPlay>
+        <Carousel>
           {carouselItems.map((item, index) => (
-            <div className="banner" key={index}>
-              <div className="banner-content">
-                <p className="brand">{item.brand}</p>
-                <h1 className="product">{item.product}</h1>
-                <h2 className="offer">{item.offer}</h2>
-                <Link to={item.link} className="shop-now">
+            <Carousel.Item key={index}>
+              <img
+                className="d-block w-100"
+                src={item.imageSrc}
+                alt={item.altText}
+                style={{ height: '500px', objectFit: 'cover' }}
+              />
+              <Carousel.Caption>
+                <h3>{item.product}</h3>
+                <p>{item.offer}</p>
+                <Link to={item.link} className="btn btn-primary">
                   Shop Now
                 </Link>
-              </div>
-              <div className="banner-image">
-                <img src={item.imageSrc} alt={item.altText} />
-              </div>
-            </div>
+              </Carousel.Caption>
+            </Carousel.Item>
           ))}
         </Carousel>
       </main>
