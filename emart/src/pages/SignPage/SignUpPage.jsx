@@ -1,0 +1,155 @@
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import './signpage.css';
+
+
+function SignUpPage() {
+  const [formData, setFormData] = useState({
+    username: '',
+    useremail: '',
+    password: '',
+    reEnterPassword: '',
+    usertype: ''
+  });
+
+  const [passwordError, setPasswordError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showReEnterPassword, setShowReEnterPassword] = useState(false);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? (checked ? 1 : 0) : value,
+    });
+  };
+
+  useEffect(() => {
+    const { password, reEnterPassword } = formData;
+    if (password !== reEnterPassword) {
+      setPasswordError('Passwords do not match');
+    } else {
+      setPasswordError('');
+    }
+  }, [formData.password, formData.reEnterPassword]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (formData.password !== formData.reEnterPassword) {
+      setPasswordError('Passwords do not match');
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:8080/users/signup', {
+        username: formData.username,
+        useremail: formData.useremail,
+        password: formData.password,
+        usertype: formData.usertype,
+      });
+
+      if (response.status === 200) {
+        navigate('/', { replace: true });
+      } else {
+        setPasswordError('SignUp Failed');
+      }
+
+    } catch (error) {
+      setPasswordError('Error occurred during signup. Please try again.');
+    }
+  };
+
+  return (
+    <Container fluid className='container-fluid'>
+      <Row className='row'>
+        <Col className='col-signin'>
+          <h2>Welcome Back!</h2>
+          <p>To keep connected with us please login with your personal info</p>
+          <Button className='btn-signin' onClick={() => navigate('/signin', { replace: true })}>Sign In</Button>
+        </Col>
+        <Col className='col-form'>
+          <h2>Create Account</h2>
+          <div>
+            <Button variant="outline-secondary" className="social-login-buttons"><i className="bi-facebook"></i></Button>
+            <Button variant="outline-secondary" className="social-login-buttons"><i className="bi bi-google"></i></Button>
+            <Button variant="outline-secondary" className='social-login-buttons'><i className="bi bi-linkedin"></i></Button>
+          </div>
+          <p>or use your email for registration:</p>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formName">
+              <Form.Control
+                
+                type="text"
+                placeholder="Name"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formEmail">
+              <Form.Control
+                type="email"
+                placeholder="Email"
+                name="useremail"
+                value={formData.useremail}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formPassword">
+              <InputGroup>
+                <Form.Control
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+                <InputGroup.Text onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </InputGroup.Text>
+              </InputGroup>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formReEnterPassword">
+              <InputGroup>
+                <Form.Control
+                  type={showReEnterPassword ? "text" : "password"}
+                  placeholder="Re-enter password"
+                  name="reEnterPassword"
+                  value={formData.reEnterPassword}
+                  onChange={handleChange}
+                  required
+                />
+                <InputGroup.Text onClick={() => setShowReEnterPassword(!showReEnterPassword)}>
+                  {showReEnterPassword ? <FaEyeSlash /> : <FaEye />}
+                </InputGroup.Text>
+              </InputGroup>
+              {passwordError && <Form.Text className="text-danger">{passwordError}</Form.Text>}
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formPrimeMember">
+              <Form.Check
+                type="checkbox"
+                label="Prime Member"
+                name="usertype"
+                checked={formData.usertype}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Button className='btn-success' type="submit">
+              Sign Up
+            </Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
+  );
+}
+
+export default SignUpPage;

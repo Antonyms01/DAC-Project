@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './productpage.css';
-import Header from '../components/Header';
-import LoadingSpinner from '../components/LoadingSpinner';
-import Rating from '../fragments/Rating';
+import Header from '../../components/Header';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import Rating from '../../fragments/Rating';
 
 function ProductPage() {
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState(null);
   const [selectedStorage, setSelectedStorage] = useState(128);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchProduct() {
       try {
-        const response = await axios.get('http://localhost:8080/products/1');
+        const response = await axios.get('http://localhost:8080/products/2');
         setProduct(response.data);
       } catch (error) {
         console.error("There was an error fetching the product!", error);
@@ -30,9 +31,9 @@ function ProductPage() {
 
   const storages = [128, 256, 512];
 
-  if (loading) {
-    return <LoadingSpinner />;
-  }
+  // if (loading) {
+  //   return <LoadingSpinner />;
+  // }
 
   if (!product) {
     return (

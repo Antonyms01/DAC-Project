@@ -10,67 +10,79 @@
   /* Row style */
   .row {
     width: 80%;
+    background-color: #00bfa5;
     max-width: 900px;
+    height: 37rem;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .col-signin{
+    display: flex; 
+    flex-direction: column;
+    color: white;
+    justify-content: center;
+    padding: 30px;
+  }
+
+  .btn-signin{
+    border: none;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px;
+    border-radius: 4px;
+    margin-top: 20px;
+    background-color: white;
+    color: #00bfa5;
+    font-weight: bold;
+  }
+
+  .btn-signin:hover{
+    background-color: #f0f0f0;
+    color: #00bfa5;
+  }
+
+
+  .col-form{
+    padding: 40px;
+    background-color:#fff;
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+  }
+
+  /* Social login buttons */
+  .social-login-buttons{
+    margin-right: 10px;
+    margin-bottom: 10px;
   }
   
   /* Left column style (Welcome Back section) */
   .col-md-6 {
     padding: 40px;
+    color: #fff;
     display: flex;
+    background-color: '#00bfa5';
     flex-direction: column;
     justify-content: center;
-  }
-  
-  /* Welcome Back text style */
-  .col-md-6:first-child {
-    background-color: #00bfa5;
-    color: white;
-  }
-  
-  /* Sign In button style */
-  .col-md-6:first-child .btn {
-    margin-top: 20px;
-    background-color: white;
-    color: #00bfa5;
-    border: none;
-    font-weight: bold;
-  }
-  
-  .col-md-6:first-child .btn:hover {
-    background-color: #f0f0f0;
-  }
-  
-  /* Right column style (Create Account section) */
-  .col-md-6:last-child {
-    background-color: white;
-  }
-  
-  /* Social login buttons */
-  .social-login-buttons .btn {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
-    margin-right: 10px;
-  }
-  
-  .social-login-buttons .btn i {
-    margin: 0;
   }
   
   /* Form field style */
   .form-control {
     border-radius: 4px;
-    margin-bottom: 15px;
     height: 45px;
     font-size: 16px;
+  }
+
+  .form-control:focus {
+    border-color: #00bfa5;
+    box-shadow: 0 0 0 0.2rem rgba(0, 191, 165, 0.25);
+  }
+
+  .input-group-text{
+    height: 45px;
+    font-weight: bold;
   }
   
   /* Sign Up button style */

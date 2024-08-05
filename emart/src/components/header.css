@@ -7,8 +7,10 @@
 }
 .emart-typography {
     flex-grow: 1;
-    font-weight: 900;
+    font-weight: 600;
     color: #fbb034;
+    text-decoration: none;
+    font-size: 32px;
 }
 
 .linkto-textbutton{

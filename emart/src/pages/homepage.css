@@ -1,54 +1,73 @@
- 
-  .main {
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 50px 20px;
-    background-color: #000;
-    color: #fff;
-  }
-  
-  .banner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    width: 100%;
-  }
-  
-  .banner-content {
-    max-width: 50%;
-  }
-  
-  .brand {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .product {
-    font-size: 36px;
-    margin: 10px 0;
-  }
-  
-  .offer {
-    font-size: 24px;
-    margin: 10px 0;
-  }
-  
-  .shop-now {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #fff;
-    color: #000;
-    text-decoration: none;
-    border-radius: 4px;
-    font-weight: bold;
-  }
-  
-  .banner-image img {
-    max-width: 100%;
-    height: auto;
-  }
-  
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 50px;
+  background-color: #000; /* Black background */
+  color: #fff; /* White text */
+}
+
+.banner {
+  display: flex;
+  justify-content: space-between; /* Space between text and image */
+  flex-direction: row; /* Align text on left, image on right */
+  align-items: center;
+  max-width: 1400px; /* Maximum width for the banner */
+  width: 100%;
+  margin: 0 auto; /* Center the banner horizontally */
+}
+
+.banner-content {
+  max-width: 50%; /* Limit text width to half */
+  text-align: left; /* Align text to the left */
+  padding: 20px;
+}
+
+.brand-logo {
+  width: 30px; /* Adjust logo size */
+}
+
+.brand {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.product {
+  font-size: 48px; /* Larger font for product */
+  margin: 20px 0 10px;
+}
+
+.offer {
+  font-size: 24px; /* Adjusted font size for offer */
+  margin: 10px 0;
+}
+
+.shop-now {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: transparent; /* Transparent background for button */
+  color: #fff; /* White text for button */
+  text-decoration: none;
+  border: 2px solid #fff; /* White border */
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.arrow {
+  font-size: 16px; /* Arrow size */
+  margin-left: 8px; /* Space between text and arrow */
+}
+
+.banner-image {
+  max-width: 50%; /* Limit image width to half */
+}
+
+.banner-image img {
+  width: 100%;
+  height: auto;
+}
+
+.categories {
+  padding: 10px;
+}
