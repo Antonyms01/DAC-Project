@@ -14,9 +14,25 @@ public class ImageUrl {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "imageid")
     private int imageId;
+    
 
-    @Column(name = "imageurl")
-    private String imageUrl;
+	@Column(name = "takeval")
+    private int takeval;
 
+    public int getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(int imageId) {
+		this.imageId = imageId;
+	}
+
+	public int getTakeval() {
+		return takeval;
+	}
+
+	public void setTakeval(int takeval) {
+		this.takeval = takeval;
+	}
 
 }

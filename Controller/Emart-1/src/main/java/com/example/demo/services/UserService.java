@@ -1,7 +1,4 @@
 package com.example.demo.services;
-
-
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +12,15 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-
-
-    public User saveUser(User user) {
-        return userRepository.save(user);
+    public String registerUser(User user) {
+        try {
+            userRepository.save(user);
+            return "User registered successfully";
+        } catch (Exception e) {
+            return "Error registering user: " + e.getMessage();
+        }
     }
+    
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -33,7 +34,9 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public User findByEmail(String email) {
-        return userRepository.findByUserEmail(email);
-    }
+//    public User findByEmail(String email) {
+//        return userRepository.findByUserEmail(email);
+//    }
+
+
 }

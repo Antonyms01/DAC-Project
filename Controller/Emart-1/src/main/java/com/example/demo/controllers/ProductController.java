@@ -10,7 +10,7 @@ import com.example.demo.services.ProductService;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@RestController		//controller+responseBody
 @RequestMapping("/products")
 public class ProductController {
 

@@ -12,15 +12,19 @@ import java.util.Optional;
 
 @Service
 @Transactional
+//The @Transactional annotation in Spring is used to manage transactions declaratively. 
+//Transactions are a mechanism to ensure that a series of operations either all succeed or all fail,
+//maintaining the consistency and integrity of the database
+
 public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
 
     // Create or Update a Product
-    public Product saveProduct(Product product) {
-        return productRepository.save(product);
-    }
+//    public Product saveProduct(Product product) {
+//        return productRepository.save(product);
+//    }
 
     // Retrieve a Product by its ID
     public Optional<Product> getProductById(int productId) {

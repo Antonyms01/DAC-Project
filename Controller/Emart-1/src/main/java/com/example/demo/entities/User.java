@@ -17,8 +17,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userid")
     private int userId;
+    
+    @Column(name = "username")
+    private String username;
 
-    public int getUserId() {
+    @Column(name = "user_email")
+    private String useremail;
+
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "usertype")
+    private byte usertype;
+
+	public int getUserId() {
 		return userId;
 	}
 
@@ -34,12 +46,12 @@ public class User {
 		this.username = username;
 	}
 
-	public String getUserEmail() {
-		return userEmail;
+	public String getUseremail() {
+		return useremail;
 	}
 
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setUseremail(String useremail) {
+		this.useremail = useremail;
 	}
 
 	public String getPassword() {
@@ -50,25 +62,17 @@ public class User {
 		this.password = password;
 	}
 
-	public byte getUserType() {
-		return userType;
+	public byte getUsertype() {
+		return usertype;
 	}
 
-	public void setUserType(byte userType) {
-		this.userType = userType;
+	public void setUsertype(byte usertype) {
+		this.usertype = usertype;
 	}
+    
 
-	@Column(name = "username")
-    private String username;
 
-    @Column(name = "user_email")
-    private String userEmail;
+	
 
-    @Column(name = "password")
-    private String password;
-
-    @Column(name = "usertype")
-    private byte userType;
-
-    // Getters and Setters
+    
 }

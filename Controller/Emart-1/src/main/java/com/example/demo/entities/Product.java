@@ -27,8 +27,11 @@ public class Product {
     @Column(name = "brandname")
     private int brandName;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "shortdesc")
+    private String shortdesc;
+    
+    @Column(name = "longdesc")
+    private String longdesc;
 
     @Column(name = "stockquantity")
     private int stockQuantity;
@@ -36,8 +39,9 @@ public class Product {
     @Column(name = "rating")
     private int rating;
 
-    @Column(name = "imageid")
-    private int imageId;
+    @Column(name = "imagepath")
+    private String imagepath;
+
     
 
     public int getProductId() {
@@ -80,12 +84,22 @@ public class Product {
 		this.brandName = brandName;
 	}
 
-	public String getDescription() {
-		return description;
+	
+
+	public String getShortdesc() {
+		return shortdesc;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setShortdesc(String shortdesc) {
+		this.shortdesc = shortdesc;
+	}
+
+	public String getLongdesc() {
+		return longdesc;
+	}
+
+	public void setLongdesc(String longdesc) {
+		this.longdesc = longdesc;
 	}
 
 	public int getStockQuantity() {
@@ -104,15 +118,12 @@ public class Product {
 		this.rating = rating;
 	}
 
-	public int getImageId() {
-		return imageId;
+	public String getImagepath() {
+		return imagepath;
 	}
 
-//	public void setImageId(int imageId) {
-//		this.imageId = imageId;
-//	}
-
-	
-
+	public void setImagepath(String imagepath) {
+		this.imagepath = imagepath;
+	}
   
 }

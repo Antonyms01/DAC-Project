@@ -14,13 +14,40 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "categoryid")
-    private int categoryId;
+    private int categoryid;
 
     @Column(name = "categoryname")
-    private String categoryName;
+    private String categoryname;
 
-    @Column(name = "imageid")
-    private int imageId;
+    @Column(name = "imagepath")
+    private String imagepath;
 
-    // Getters and Setters
-}
+    
+	public String getImagepath() {
+		return imagepath;
+	}
+
+	public void setImagepath(String imagepath) {
+		this.imagepath = imagepath;
+	}
+
+	public int getCategoryId() {
+		return categoryid;
+	}
+
+	public void setCategoryId(int categoryid) {
+		this.categoryid = categoryid;
+	}
+
+	public String getCategoryName() {
+		return categoryname;
+	}
+
+	public void setCategoryName(String categoryname) {
+		this.categoryname = categoryname;
+	}
+
+
+
+    
+    }

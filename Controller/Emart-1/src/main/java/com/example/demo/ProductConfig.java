@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
+//This annotation marks the class as a configuration class, which indicates that it contains
+//bean definitions that the Spring container will manage
+
 public class ProductConfig {
 	 @Bean
 	

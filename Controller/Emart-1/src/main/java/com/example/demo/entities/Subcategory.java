@@ -16,16 +16,50 @@ public class Subcategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "subcategoryid")
-    private int subcategoryId;
+    private int subcategoryid; // Match with database column
 
     @Column(name = "categoryid")
-    private int categoryId;
+    private int categoryid; // Match with database column
+
+    @Column(name = "imagepath")
+    private String imagepath;
+
 
     @Column(name = "subcategoryname")
-    private String subcategoryName;
-
-    @Column(name = "imageid")
-    private int imageId;
+    private String subcategoryname;
 
     // Getters and Setters
+
+    public int getSubcategoryid() {
+        return subcategoryid;
+    }
+
+    public void setSubcategoryid(int subcategoryid) {
+        this.subcategoryid = subcategoryid;
+    }
+
+    public int getCategoryid() {
+        return categoryid;
+    }
+
+    public void setCategoryid(int categoryid) {
+        this.categoryid = categoryid;
+    }
+
+   
+    public String getImagepath() {
+		return imagepath;
+	}
+
+	public void setImagepath(String imagepath) {
+		this.imagepath = imagepath;
+	}
+
+	public String getSubcategoryname() {
+        return subcategoryname;
+    }
+
+    public void setSubcategoryname(String subcategoryname) {
+        this.subcategoryname = subcategoryname;
+    }
 }
