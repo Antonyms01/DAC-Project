@@ -14,13 +14,12 @@ const Header = () => {
   return (
     <AppBar position="static" >
       <Toolbar className='emart-header'>
-        <Typography variant='h4' className='emart-typography'>
+        <Link to="/" className='emart-typography'>
           Emart
+        </Link>
+        <Typography variant='h4' className='emart-typography'>
         </Typography>
         <SearchBar />
-        <Link to="/" className='linkto-textbutton'>
-          Home
-        </Link>
         <Link to="/signup" className='linkto-textbutton'>
           Sign Up
         </Link>

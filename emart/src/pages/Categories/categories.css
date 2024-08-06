@@ -1,0 +1,36 @@
+.card-category{
+  display: inline-block;
+  width: 13.5rem;
+  height: 20rem;
+  background-color: #f8f9fa;
+  color: #000;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 10px 15px 15px 55px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  border-radius: 10px;
+  border: none; 
+}
+
+.card-category:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.card-category img {
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.card-text {
+  margin: 15px;
+  text-align: center;
+}
+
+.subcategories{
+  margin-top: 15px;
+}

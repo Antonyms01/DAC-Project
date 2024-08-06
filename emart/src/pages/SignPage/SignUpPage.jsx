@@ -1,25 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import './signpage.css';
 
-function LoginPage() {
+
+function SignUpPage() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
+    username: '',
+    useremail: '',
     password: '',
     reEnterPassword: '',
-    primeMember: false,
+    usertype: ''
   });
 
   const [passwordError, setPasswordError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showReEnterPassword, setShowReEnterPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === 'checkbox' ? (checked ? 1 : 0) : value,
     });
   };
 
@@ -32,53 +37,69 @@ function LoginPage() {
     }
   }, [formData.password, formData.reEnterPassword]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate password match before submission
     if (formData.password !== formData.reEnterPassword) {
       setPasswordError('Passwords do not match');
-      return; // Prevent unnecessary submission
+      return;
     }
 
-    // Add logic for form submission here
-    console.log('Form submitted:', formData);
-    // You can make an API call, store data in local storage, etc.
+    try {
+      const response = await axios.post('http://localhost:8080/users/signup', {
+        username: formData.username,
+        useremail: formData.useremail,
+        password: formData.password,
+        usertype: formData.usertype,
+      });
+
+      if (response.status === 200) {
+        navigate('/', { replace: true });
+      } else {
+        setPasswordError('SignUp Failed');
+      }
+
+    } catch (error) {
+      setPasswordError('Error occurred during signup. Please try again.');
+    }
   };
 
   return (
-    <Container fluid style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#f5f5f5' }}>
-      <Row style={{ width: '80%', maxWidth: '900px', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-        <Col md={6} style={{ backgroundColor: '#00bfa5', color: '#fff', padding: '40px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+    <Container fluid className='container-fluid'>
+      <Row className='row'>
+        <Col className='col-signin'>
           <h2>Welcome Back!</h2>
           <p>To keep connected with us please login with your personal info</p>
-          <Button variant="light" style={{ marginTop: '20px' }}>Sign In</Button>
+          <Button className='btn-signin' onClick={() => navigate('/signin', { replace: true })}>Sign In</Button>
         </Col>
-        <Col md={6} style={{ padding: '40px', backgroundColor: '#fff' }}>
+        <Col className='col-form'>
           <h2>Create Account</h2>
-          <div className="social-login-buttons" style={{ marginBottom: '20px' }}>
-            <Button variant="outline-secondary" className="me-2"><i className="bi bi-facebook"></i></Button>
-            <Button variant="outline-secondary" className="me-2"><i className="bi bi-google"></i></Button>
-            <Button variant="outline-secondary"><i className="bi bi-linkedin"></i></Button>
+          <div>
+            <Button variant="outline-secondary" className="social-login-buttons"><i className="bi-facebook"></i></Button>
+            <Button variant="outline-secondary" className="social-login-buttons"><i className="bi bi-google"></i></Button>
+            <Button variant="outline-secondary" className='social-login-buttons'><i className="bi bi-linkedin"></i></Button>
           </div>
           <p>or use your email for registration:</p>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formName">
               <Form.Control
+                
                 type="text"
                 placeholder="Name"
-                name="name"
-                value={formData.name}
+                name="username"
+                value={formData.username}
                 onChange={handleChange}
+                required
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formEmail">
               <Form.Control
                 type="email"
                 placeholder="Email"
-                name="email"
-                value={formData.email}
+                name="useremail"
+                value={formData.useremail}
                 onChange={handleChange}
+                required
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formPassword">
@@ -89,6 +110,7 @@ function LoginPage() {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
+                  required
                 />
                 <InputGroup.Text onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -103,6 +125,7 @@ function LoginPage() {
                   name="reEnterPassword"
                   value={formData.reEnterPassword}
                   onChange={handleChange}
+                  required
                 />
                 <InputGroup.Text onClick={() => setShowReEnterPassword(!showReEnterPassword)}>
                   {showReEnterPassword ? <FaEyeSlash /> : <FaEye />}
@@ -114,19 +137,19 @@ function LoginPage() {
               <Form.Check
                 type="checkbox"
                 label="Prime Member"
-                name="primeMember"
-                checked={formData.primeMember}
+                name="usertype"
+                checked={formData.usertype}
                 onChange={handleChange}
               />
             </Form.Group>
-            <Button variant="success" type="submit">
+            <Button className='btn-success' type="submit">
               Sign Up
             </Button>
           </Form>
         </Col>
       </Row>
-    </Container>  
+    </Container>
   );
 }
 
-export default LoginPage;
+export default SignUpPage;

@@ -1,6 +1,6 @@
 // src/pages/OrdersPage.js
 import React from 'react';
-import Header from '../components/Header';
+import Header from '../../components/Header';
 import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './shoppingcart.css';
