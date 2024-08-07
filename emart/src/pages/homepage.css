@@ -15,12 +15,18 @@
   max-width: 1400px; /* Maximum width for the banner */
   width: 100%;
   margin: 0 auto; /* Center the banner horizontally */
+  position: relative; /* Ensure banner is the containing block for absolute positioning */
+  overflow: hidden;
 }
 
 .banner-content {
-  max-width: 50%; /* Limit text width to half */
+  max-width: 100%; /* Limit text width to half */
   text-align: left; /* Align text to the left */
   padding: 20px;
+  position: absolute; /* Position it over the image */
+  top: 80%; /* Center vertically */
+  left: 9%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Offset by half of its own dimensions */
 }
 
 .brand-logo {
@@ -64,7 +70,6 @@
 }
 
 .banner-image img {
-  width: 100%;
   height: auto;
 }
 

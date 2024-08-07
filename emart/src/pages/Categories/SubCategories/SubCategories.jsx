@@ -26,7 +26,7 @@ const SubCategories = ({ categoryId, categoryName}) => { // Ensure correct prop 
   }, [categoryId]);
 
   const handleSelectSubCategory = (subcategoryid) => {
-    navigate(`/products/${subcategoryid}`); // Navigate to ProductAllPage
+    navigate(`/products/${subcategoryid}`,); // Navigate to ProductAllPage
   };
 
   return (

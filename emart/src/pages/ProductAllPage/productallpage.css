@@ -3,10 +3,14 @@
     height: 100%;
     width: 100%;
     margin: 2% 4% 0% 0%;
-    padding: 20px;
+    padding: 10px 20px 10px 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-product-img{
+    /* margin: 20px; */
   }
   
   .cart-summary {
@@ -35,3 +39,5 @@
   .cart-summary .text-success {
     color: green;
   }
+
+

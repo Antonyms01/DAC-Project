@@ -6,11 +6,11 @@
   background-color: #fff;
 }
 .emart-typography {
-    flex-grow: 1;
-    font-weight: 600;
-    color: #fbb034;
-    text-decoration: none;
-    font-size: 32px;
+    flex-grow: 10;
+}
+
+.emart-logo{
+    height: 45px;
 }
 
 .linkto-textbutton{

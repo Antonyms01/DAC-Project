@@ -9,19 +9,13 @@ import SubCategories from './Categories/SubCategories/SubCategories';
 
 const carouselItems = [
   {
-    brand: '*T&C Apply',
-    product: 'iPhone 14 Series',
-    offer: 'Up to 10% off Voucher',
     link: '/product',
-    imageSrc: 'assets/images/iphone-14-banner.png',
+    imageSrc: '/assets/images/banner/iphone14-banner.jpg',
     altText: 'iPhone 14'
   },
   {
-    brand: '*T&C Apply',
-    product: 'iPhone 15 Series',
-    offer: 'Up to 15% off Voucher',
     link: '/product',
-    imageSrc: 'assets/images/iphone-14-banner.png',
+    imageSrc: '/assets/images/banner/tv-banner.jpg',
     altText: 'iPhone 15'
   },
 ];
@@ -30,11 +24,11 @@ const HomePage = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const handleCategorySelect = (categoryId) => {
-    setSelectedCategory(categoryId);
+    setSelectedCategory(categoryId, { replace: true });
   };
 
   const handleBackToCategories = () => {
-    setSelectedCategory(null);
+    setSelectedCategory(null, { replace: true });
   };
 
   return (
@@ -46,25 +40,15 @@ const HomePage = () => {
             {carouselItems.map((item, index) => (
               <Carousel.Item key={index}>
                 <div className="banner">
+                <div className="banner-image">
+                  <img src={process.env.PUBLIC_URL + item.imageSrc} alt={item.altText} />
                   <div className="banner-content">
-                    <img src="assets/images/apple-logo.png" alt="Apple Logo" className="brand-logo" />
-                    <h1 className="product">{item.product}</h1>
-                    <h2 className="offer">{item.offer}</h2>
-                    <Link
-                      to={item.link}
-                      className="shop-now"
-                      onClick={(e) => e.stopPropagation()}
-                    >
+                    <Link to={item.link} className="shop-now" onClick={(e) => e.stopPropagation()}>
                       Shop Now
                     </Link>
                   </div>
-                  <div className="banner-image">
-                    <img
-                      src={process.env.PUBLIC_URL + '/' + item.imageSrc}
-                      alt={item.altText}
-                    />
-                  </div>
                 </div>
+              </div>
               </Carousel.Item>
             ))}
           </Carousel>

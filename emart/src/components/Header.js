@@ -14,8 +14,8 @@ const Header = () => {
   return (
     <AppBar position="static" >
       <Toolbar className='emart-header'>
-        <Link to="/" className='emart-typography'>
-          Emart
+        <Link to="/">
+          <img src={`${process.env.PUBLIC_URL}/assets/images/emart.png`} alt="Emart" className='emart-logo' />
         </Link>
         <Typography variant='h4' className='emart-typography'>
         </Typography>
