@@ -11,6 +11,8 @@ import ProductPage from './pages/ProductPage/ProductPage';
 import FetchPage from './pages/FetchPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import SubCategories from './pages/Categories/SubCategories/SubCategories';
+import ProductAllPage from './pages/ProductAllPage/ProductAllPage';
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
         <Route path="/favorite" element={<FavoritePage />} />
         <Route path="/product" element={<ProductPage />} />
         <Route path="/fetchpage" element={<FetchPage />} />
+        <Route path="/products/:subcategoryid" element={<ProductAllPage />} />
       </Routes>
     </Router>
   );

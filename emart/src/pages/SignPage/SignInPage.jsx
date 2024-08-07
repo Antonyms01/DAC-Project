@@ -44,8 +44,8 @@ function SignInPage() {
 
   return (
     <Container fluid className='container-fluid'>
-      <Row className='row'>
-        <Col className='col-form'>
+      <Row className='row-sign'>
+        <Col className='col-white'>
           <h2>Sign In</h2>
           <div>
             <Button variant="outline-secondary" className="social-login-buttons"><i className="bi-facebook"></i></Button>
@@ -85,7 +85,8 @@ function SignInPage() {
             </Button>
           </Form>
         </Col>
-        <Col md={6} style={{ backgroundColor: '#00bfa5', color: '#fff', padding: '40px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        {/* style={{ backgroundColor: '#00bfa5', color: '#fff', padding: '40px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }} */}
+        <Col md={6} className='col-green'>
           <h2>Create new account!</h2>
           <p>To keep connected with us please login with your personal info</p>
           <Button className='btn-signin' onClick={() => navigate('/signup', { replace: true })}>Sign Up</Button>

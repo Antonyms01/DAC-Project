@@ -66,13 +66,13 @@ function SignUpPage() {
 
   return (
     <Container fluid className='container-fluid'>
-      <Row className='row'>
-        <Col className='col-signin'>
+      <Row className='row-sign'>
+        <Col className='col-green'>
           <h2>Welcome Back!</h2>
           <p>To keep connected with us please login with your personal info</p>
           <Button className='btn-signin' onClick={() => navigate('/signin', { replace: true })}>Sign In</Button>
         </Col>
-        <Col className='col-form'>
+        <Col className='col-white'>
           <h2>Create Account</h2>
           <div>
             <Button variant="outline-secondary" className="social-login-buttons"><i className="bi-facebook"></i></Button>

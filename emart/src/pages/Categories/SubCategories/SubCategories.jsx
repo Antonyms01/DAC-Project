@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import './subcategories.css'; 
 
-const SubCategories = ({ categoryId, categoryName }) => { // Ensure correct prop names
+const SubCategories = ({ categoryId, categoryName}) => { // Ensure correct prop names
   const [subCategories, setSubCategories] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
     const fetchSubCategories = async () => {
@@ -23,6 +25,10 @@ const SubCategories = ({ categoryId, categoryName }) => { // Ensure correct prop
     }
   }, [categoryId]);
 
+  const handleSelectSubCategory = (subcategoryid) => {
+    navigate(`/products/${subcategoryid}`); // Navigate to ProductAllPage
+  };
+
   return (
     <div className="subcategories">
       {error ? (
@@ -34,11 +40,14 @@ const SubCategories = ({ categoryId, categoryName }) => { // Ensure correct prop
           
           {subCategories.map((subcategory) => (
             
-            <Card className='card-subcategory' key={subcategory.subcategoryid} border="secondary">
+            <Card className='card-subcategory' 
+            key={subcategory.subcategoryid} 
+            border="secondary"
+            onClick={() => handleSelectSubCategory(subcategory.subcategoryid)}
+            >
                <Card.Img
               variant="top"
               src={`${process.env.PUBLIC_URL}${subcategory.imagepath}`} // Construct the full URL correctly
-              
               alt={subcategory.subcategoryname}
               
             />
