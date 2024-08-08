@@ -34,10 +34,7 @@ const SubCategories = ({ categoryId, categoryName}) => { // Ensure correct prop 
       {error ? (
         <Alert variant="danger">Error fetching subcategories: {error.message}</Alert>
       ) : subCategories.length > 0 ? (
-        <>
-        
-          <h3>Subcategories for {categoryName}</h3>
-          
+        <>          
           {subCategories.map((subcategory) => (
             
             <Card className='card-subcategory' 

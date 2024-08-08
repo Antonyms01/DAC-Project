@@ -1,13 +1,16 @@
+// src/components/SearchBar/SearchBar.jsx
 import React, { useState } from 'react';
 import './searchbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
-function SearchBar() {
+function SearchBar({ onSearch }) {
   const [query, setQuery] = useState('');
 
   const handleInputChange = (event) => {
-    setQuery(event.target.value);
+    const searchQuery = event.target.value;
+    setQuery(searchQuery);
+    onSearch(searchQuery);
   };
 
   const handleSearch = (event) => {
@@ -28,7 +31,6 @@ function SearchBar() {
       <button type="submit" className="search-bar-button">
         <FontAwesomeIcon icon={faMagnifyingGlass} />
       </button>
-      
     </form>
   );
 }

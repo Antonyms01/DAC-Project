@@ -2,7 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 50px;
+ padding-top: 3rem;
+ padding-bottom: 3rem;
   background-color: #000; /* Black background */
   color: #fff; /* White text */
 }
@@ -20,13 +21,9 @@
 }
 
 .banner-content {
-  max-width: 100%; /* Limit text width to half */
+  max-width: 50%; /* Limit text width to half */
   text-align: left; /* Align text to the left */
-  padding: 20px;
-  position: absolute; /* Position it over the image */
-  top: 80%; /* Center vertically */
-  left: 9%; /* Center horizontally */
-  transform: translate(-50%, -50%); /* Offset by half of its own dimensions */
+  padding-left: 6rem;
 }
 
 .brand-logo {
@@ -69,16 +66,20 @@
   max-width: 50%; /* Limit image width to half */
 }
 
-.banner-image img {
-  height: auto;
+.banner-img{
+  height: 16rem;
 }
 
 .categories {
-  padding: 10px;
+  margin: 40px;
+
 }
 
+.arrow{
+  margin-right: 30px;
+}
 .back-to-categories {
-  display: inline-flex;
+  display: inline-block;
   align-items: center;
   padding: 10px 20px;
   font-size: 16px;

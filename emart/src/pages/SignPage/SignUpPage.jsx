@@ -5,7 +5,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './signpage.css';
 
-
 function SignUpPage() {
   const [formData, setFormData] = useState({
     username: '',
@@ -30,7 +29,11 @@ function SignUpPage() {
 
   useEffect(() => {
     const { password, reEnterPassword } = formData;
-    if (password !== reEnterPassword) {
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/;
+
+    if (!passwordPattern.test(password)) {
+      setPasswordError('Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.');
+    } else if (password !== reEnterPassword) {
       setPasswordError('Passwords do not match');
     } else {
       setPasswordError('');
@@ -40,8 +43,7 @@ function SignUpPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.password !== formData.reEnterPassword) {
-      setPasswordError('Passwords do not match');
+    if (passwordError) {
       return;
     }
 
@@ -83,7 +85,6 @@ function SignUpPage() {
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formName">
               <Form.Control
-                
                 type="text"
                 placeholder="Name"
                 name="username"

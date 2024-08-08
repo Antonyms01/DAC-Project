@@ -37,8 +37,21 @@
 }
 
 .price {
+  display: inline;
   font-size: 1.5em;
   font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.offer-product{
+  display: inline-block;
+}
+
+.discounted-price {
+  display: inline;
+  font-size: 1.2em;
+  color: red;
+  margin-left: 10px;
   margin-bottom: 10px;
 }
 

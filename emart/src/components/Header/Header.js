@@ -8,15 +8,28 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Typography from '@mui/material/Typography';
 import './header.css';
-import SearchBar from './SearchBar.js';
+import SearchBar from './SearchBar/SearchBar';
+
 
 const Header = () => {
+  
+  let _isLoggedin = true;
+  let _userType = 1;
+
   return (
     <AppBar position="static" >
       <Toolbar className='emart-header'>
         <Link to="/">
           <img src={`${process.env.PUBLIC_URL}/assets/images/emart.png`} alt="Emart" className='emart-logo' />
         </Link>
+        {_isLoggedin && _userType === 1 ? (
+          <>
+            <img src={`${process.env.PUBLIC_URL}/assets/images/coin.png`} alt="Coin" className='coin' />
+            <input type='text' disabled value='10000' className='coin-value' />
+          </>
+        ):(
+          <></>
+        )}
         <Typography variant='h4' className='emart-typography'>
         </Typography>
         <SearchBar />

@@ -8,10 +8,10 @@ import './signpage.css';
 function SignInPage() {
   const [formData, setFormData] = useState({
     useremail: '',
-    password: ''
+    password: '',
   });
 
-  const [passwordError, setPasswordError] = useState('');
+  const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -34,25 +34,30 @@ function SignInPage() {
       if (response.status === 200) {
         navigate('/', { replace: true });
       } else {
-        setPasswordError('SignIn Failed');
+        setError('SignIn Failed');
       }
-
     } catch (error) {
-      setPasswordError('Error occurred during signin. Please try again.');
+      setError('Error occurred during signin. Please try again.');
     }
   };
 
   return (
-    <Container fluid className='container-fluid'>
-      <Row className='row-sign'>
-        <Col className='col-white'>
+    <Container fluid className="container-fluid">
+      <Row className="row-sign">
+        <Col className="col-white">
           <h2>Sign In</h2>
           <div>
-            <Button variant="outline-secondary" className="social-login-buttons"><i className="bi-facebook"></i></Button>
-            <Button variant="outline-secondary" className="social-login-buttons"><i className="bi bi-google"></i></Button>
-            <Button variant="outline-secondary" className='social-login-buttons'><i className="bi bi-linkedin"></i></Button>
+            <Button variant="outline-secondary" className="social-login-buttons">
+              <i className="bi-facebook"></i>
+            </Button>
+            <Button variant="outline-secondary" className="social-login-buttons">
+              <i className="bi bi-google"></i>
+            </Button>
+            <Button variant="outline-secondary" className="social-login-buttons">
+              <i className="bi bi-linkedin"></i>
+            </Button>
           </div>
-          <p>Use your email for registration</p>
+          <p>Use your email to sign in:</p>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formEmail">
               <Form.Control
@@ -67,7 +72,7 @@ function SignInPage() {
             <Form.Group className="mb-3" controlId="formPassword">
               <InputGroup>
                 <Form.Control
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   placeholder="Password"
                   name="password"
                   value={formData.password}
@@ -79,17 +84,18 @@ function SignInPage() {
                 </InputGroup.Text>
               </InputGroup>
             </Form.Group>
-            {passwordError && <Form.Text className="text-danger">{passwordError}</Form.Text>}
+            {error && <Form.Text className="text-danger">{error}</Form.Text>}
             <Button variant="success" type="submit">
               Sign In
             </Button>
           </Form>
         </Col>
-        {/* style={{ backgroundColor: '#00bfa5', color: '#fff', padding: '40px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }} */}
-        <Col md={6} className='col-green'>
+        <Col md={6} className="col-green">
           <h2>Create new account!</h2>
-          <p>To keep connected with us please login with your personal info</p>
-          <Button className='btn-signin' onClick={() => navigate('/signup', { replace: true })}>Sign Up</Button>
+          <p>To keep connected with us please sign up with your personal info</p>
+          <Button className="btn-signin" onClick={() => navigate('/signup', { replace: true })}>
+            Sign Up
+          </Button>
         </Col>
       </Row>
     </Container>

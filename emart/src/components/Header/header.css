@@ -13,6 +13,18 @@
     height: 45px;
 }
 
+.coin
+{
+    margin-left: 20px;
+    width: 2.2rem;
+}
+
+.coin-value{
+    width: 4rem;
+    text-align: center;
+    border-radius: 5px;
+}
+
 .linkto-textbutton{
     text-decoration: none;
     color: #2c2c2c;

@@ -1,22 +1,34 @@
 import React, { useState } from 'react';
-import Header from '../components/Header';
 import { Link } from 'react-router-dom';
 import { Carousel, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import './homepage.css';
+import Header from '../components/Header/Header';
 import Categories from './Categories/Categories';
 import SubCategories from './Categories/SubCategories/SubCategories';
+import AboutUs from '../components/AboutUs/AboutUs';
+import ContactUs from '../components/ContactUs/ContactUs';
+import Footer from '../components/Footer/Footer';
+
 
 const carouselItems = [
   {
-    link: '/product',
-    imageSrc: '/assets/images/banner/iphone14-banner.jpg',
-    altText: 'iPhone 14'
+    brand: '/assets/images/brandlogo/apple-logo.png',
+    product: 'iPhone 15 Series',
+    offer: 'Up to 10% off Voucher',
+    link: '/product/1',
+    imageSrc: '/assets/images/banner/iphone15-banner.png', // Ensure correct image path
+    altText: 'iPhone 15'
   },
   {
-    link: '/product',
-    imageSrc: '/assets/images/banner/tv-banner.jpg',
-    altText: 'iPhone 15'
+    brand: '/assets/images/brandlogo/lg-logo.png',
+    product: 'LG UHD 4K TVs',
+    offer: 'Up to 15% off Voucher',
+    link: '/product/6',
+    imageSrc: '/assets/images/banner/tv-banner.png', // Ensure correct image path
+    altText: 'LG UHD'
   },
 ];
 
@@ -40,14 +52,25 @@ const HomePage = () => {
             {carouselItems.map((item, index) => (
               <Carousel.Item key={index}>
                 <div className="banner">
-                <div className="banner-image">
-                  <img src={process.env.PUBLIC_URL + item.imageSrc} alt={item.altText} />
-                  <div className="banner-content">
-                    <Link to={item.link} className="shop-now" onClick={(e) => e.stopPropagation()}>
+                <div className="banner-content">
+                    <img src={`${process.env.PUBLIC_URL}${item.brand}`} alt="Apple Logo" className="brand-logo" />
+                    <h1 className="product">{item.product}</h1>
+                    <h2 className="offer">{item.offer}</h2>
+                    <Link
+                      to={item.link}
+                      className="shop-now"
+                      onClick={(e) => e.stopPropagation()} // Prevent carousel sliding
+                    >
                       Shop Now
                     </Link>
                   </div>
-                </div>
+                  <div className="banner-image">
+                    <img
+                      className='banner-img'
+                      src={`${process.env.PUBLIC_URL}${item.imageSrc}`} // Ensure the image path is correct
+                      alt={item.altText}
+                    />
+                  </div>
               </div>
               </Carousel.Item>
             ))}
@@ -60,13 +83,19 @@ const HomePage = () => {
         ) : (
           <div>
             <button className="back-to-categories" onClick={handleBackToCategories}>
-              <i className="fas fa-angle-left"></i> Back to Categories
+              <FontAwesomeIcon className="arrow" icon={faAngleLeft} />
+              Back to Categories
             </button>
             <SubCategories categoryId={selectedCategory} />
           </div>
         )}
-      </div>  
+        
+      </div> 
+      <AboutUs/>
+      <ContactUs/>
+      <Footer/> 
     </div>
+    
   );
 };
 
