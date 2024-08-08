@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import axios from 'axios';
@@ -11,7 +11,7 @@ function SignUpPage() {
     useremail: '',
     password: '',
     reEnterPassword: '',
-    usertype: ''
+    usertype: false
   });
 
   const [passwordError, setPasswordError] = useState('');
@@ -23,28 +23,24 @@ function SignUpPage() {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? (checked ? 1 : 0) : value,
+      [name]: type === 'checkbox' ? checked : value,
     });
   };
 
-  useEffect(() => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     const { password, reEnterPassword } = formData;
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/;
 
     if (!passwordPattern.test(password)) {
       setPasswordError('Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.');
+      return;
     } else if (password !== reEnterPassword) {
       setPasswordError('Passwords do not match');
+      return;
     } else {
       setPasswordError('');
-    }
-  }, [formData.password, formData.reEnterPassword]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (passwordError) {
-      return;
     }
 
     try {
@@ -52,7 +48,7 @@ function SignUpPage() {
         username: formData.username,
         useremail: formData.useremail,
         password: formData.password,
-        usertype: formData.usertype,
+        usertype: formData.usertype ? 1 : 0,
       });
 
       if (response.status === 200) {

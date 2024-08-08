@@ -15,6 +15,7 @@ const Header = () => {
   
   let _isLoggedin = true;
   let _userType = 1;
+  let userPoints = 10000;
 
   return (
     <AppBar position="static" >
@@ -25,7 +26,7 @@ const Header = () => {
         {_isLoggedin && _userType === 1 ? (
           <>
             <img src={`${process.env.PUBLIC_URL}/assets/images/coin.png`} alt="Coin" className='coin' />
-            <input type='text' disabled value='10000' className='coin-value' />
+            <input type='text' disabled value={userPoints} className='coin-value' />
           </>
         ):(
           <></>

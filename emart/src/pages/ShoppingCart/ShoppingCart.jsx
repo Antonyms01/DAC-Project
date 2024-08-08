@@ -120,7 +120,7 @@ const ShoppingCart = () => {
               <div className="cart-promotion">
                 <h4>Promotions</h4>
                 <ListGroup variant="flush" className='cart-summary'>
-                  <ListGroup.Item>Free Shipping on Orders ₹39+ <span className="text-success">-₹18.97</span></ListGroup.Item>
+                  <ListGroup.Item>Free Shipping on Orders Above ₹10000</ListGroup.Item>
                   <ListGroup.Item>Subtotal <span className="float-end">{calculateTotal()}</span></ListGroup.Item>
                   <ListGroup.Item>Shipping cost <span className="float-end">₹18.97</span></ListGroup.Item>
                   <ListGroup.Item>Shipping Discount <span className="text-danger float-end">-₹18.97</span></ListGroup.Item>
