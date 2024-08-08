@@ -55,7 +55,7 @@ const SubCategories = ({ categoryId, categoryName}) => { // Ensure correct prop 
           ))}
         </>
       ) : (
-        <Alert variant="warning">No subcategories available for {categoryName}.</Alert>
+        <Alert variant="warning">No subcategories available for this category.</Alert>
       )}
     </div>
   );

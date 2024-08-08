@@ -1,6 +1,6 @@
-// src/pages/ProductPage/ProductPage.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Form, Alert } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import './productpage.css';
@@ -12,14 +12,15 @@ import Notification from '../../components/Notification/Notification';
 function ProductPage() {
   let _isLoggedin = true;
   let _userType = 1;
-  let isdiscounted = 0;
-  let userCredits = 10000;
+  let _userCredits = 100;
 
   const { productId } = useParams();
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState(null);
   const [selectedStorage, setSelectedStorage] = useState(128);
   const { addToCart } = useCart();
+  const [checkboxState, setCheckboxState] = useState(false);
+  const [error, setError] = useState(null);
   const [notification, setNotification] = useState({ message: '', show: false });
 
   useEffect(() => {
@@ -28,7 +29,7 @@ function ProductPage() {
         const response = await axios.get(`http://localhost:8080/products/${productId}`);
         setProduct(response.data);
       } catch (error) {
-        console.error("There was an error fetching the product!", error);
+        setError("There was an error fetching the product!", error);
       } finally {
         setLoading(false);
       }
@@ -42,16 +43,41 @@ function ProductPage() {
 
   const handleAddToCart = () => {
     if (product) {
-      addToCart({ ...product, selectedStorage });
+      const price = (_isLoggedin && _userType === 1) ? 
+                      product.isdiscounted === 1 ? 
+                        product.price - product.price * 0.1 
+                      :
+                        checkboxState ?
+                          product.price - 100
+                        :
+                          product.price
+                    :
+                      product.price;
+      const cartProduct = { 
+        ...product, 
+        price, 
+        key: `${product.productId}-${checkboxState}` // Unique key for the cart item based on checkbox state
+      };
+      addToCart(cartProduct);
+      setCheckboxState(false);
       setNotification({ message: 'Product successfully added to cart', show: true });
       setTimeout(() => setNotification({ ...notification, show: false }), 3000); // Hide after 3 seconds
     }
+  };
+
+  const handleCheckboxChange = (e) => {
+    e.stopPropagation();
+    setCheckboxState(!checkboxState);
   };
 
   const storages = [128, 256, 512];
 
   if (loading) {
     return <LoadingSpinner />;
+  }
+
+  if (error) {
+    return <Alert variant="danger">Error loading products: {error.message}</Alert>;
   }
 
   if (!product) {
@@ -79,22 +105,38 @@ function ProductPage() {
         <div className="product-details">
           <h1 id="product-name">{product.name}</h1>
           <h2 id="product-description">({product.shortdesc}, {selectedStorage} GB)</h2>
-          <p className="fine-print">In Stock {product.stockQuantity}</p>
+          
+          {product.stockQuantity === 0 ? 
+            <p className="fine-print text-danger">Out of Stock</p> 
+            : <p className="fine-print text-success">In Stock {product.stockQuantity}</p>}
+
           <p><Rating value={product.rating} /></p>
+          
           {_isLoggedin && _userType === 1 ? 
-            (isdiscounted === 0)? (
-              <p className="price">₹{product.price - userCredits}{' + '}
-              <img className='coin-32px' src={`${process.env.PUBLIC_URL}/assets/images/coin.png`} alt="Coin"></img>
-              {'10000'}</p>
-              ):(
-                <div className='offer-product'>
-                  <p className="price"><s>₹{product.price}</s></p>
-                  <p className="discounted-price">₹{product.price - product.price*0.2}</p>
+            (product.isdiscounted === 0)? (
+              <div>
+                <h5>₹{product.price}</h5>
+                <div>
+                  <Form.Check type="checkbox" name="epoint" style={{ display: 'inline-block', marginRight: '10px' }}
+                    checked={checkboxState}
+                    onChange={handleCheckboxChange}
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                  <p className="price">₹{product.price - 100}{' + '}
+                  <img className='coin-32px' src={`${process.env.PUBLIC_URL}/assets/images/coin.png`} alt="Coin"></img>
+                  {'100'}</p>
                 </div>
-                )
-            : (
-              <p className="price">₹{product.price}</p>
+              </div>
+            ):(
+              <div className='offer-product'>
+                <h5 className="price-s"><s>₹{product.price}</s></h5>
+                <h4 className="discounted-price">₹{product.price - product.price*0.1}</h4>
+              </div>
+              )
+          : (
+            <p className="price">₹{product.price}</p>
           )}
+
           <p>{product.longdesc}</p>
           <h3>Storage</h3>
           <div className="storage-options">
@@ -102,14 +144,15 @@ function ProductPage() {
               <button
                 key={storage}
                 onClick={() => handleStorageChange(storage)}
-                className={storage === selectedStorage ? 'active' : ''}
-              >
+                className={storage === selectedStorage ? 'active' : ''}>
                 {storage} GB
               </button>
             ))}
           </div>
           <br />
-          <button className="add-to-cart" onClick={handleAddToCart}>Add to cart</button>
+          <button className="add-to-cart" 
+            onClick={handleAddToCart}
+            disabled={product.stockquantity <= 0}>Add to cart</button>
           <button className="buy-now">Buy Now</button>
           <br />
           <div className="delivery">

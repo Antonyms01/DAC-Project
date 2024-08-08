@@ -27,12 +27,11 @@ function SignInPage() {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8080/users/signin', {
-        useremail: formData.useremail,
+        user_email: formData.useremail,
         password: formData.password,
       });
 
       if (response.status === 200) {
-        // Assuming response.data contains user data and a token
         const { token, user } = response.data;
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));

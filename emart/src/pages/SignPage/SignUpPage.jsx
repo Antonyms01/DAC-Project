@@ -46,12 +46,16 @@ function SignUpPage() {
     try {
       const response = await axios.post('http://localhost:8080/users/signup', {
         username: formData.username,
-        useremail: formData.useremail,
+        user_email: formData.useremail,
         password: formData.password,
         usertype: formData.usertype ? 1 : 0,
+        epoint: formData.usertype ? 100 : 0
       });
 
       if (response.status === 200) {
+        const { token, user } = response.data;
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
         navigate('/', { replace: true });
       } else {
         setPasswordError('SignUp Failed');

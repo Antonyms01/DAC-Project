@@ -13,13 +13,13 @@ import SearchBar from './SearchBar/SearchBar';
 
 
 const Header = () => {
-  
+
   const user = JSON.parse(localStorage.getItem('user'));
   const token = localStorage.getItem('token');
 
   const _isLoggedin = token ? true : false;
   const _userType = user ? user.userType : 0;
-  const _userCredits = user ? user.credits : 0;
+  const _userCredits = user ? user.epoint : 0;
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -64,7 +64,6 @@ const Header = () => {
             Sign Up
           </Link>
         )}
-        
         <Link to="/orders" className='linkto-textbutton'>
           Orders
         </Link>
