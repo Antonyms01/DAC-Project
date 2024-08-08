@@ -1,4 +1,4 @@
-// src/pages/ProductAllPage/ProductAllPage.js
+// src/pages/ProductAllPage/ProductAllPage.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -8,40 +8,23 @@ import Header from '../../components/Header/Header';
 import Rating from '../../components/Rating/Rating';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import { useCart } from '../../context/CartContext';
+import Notification from '../../components/Notification/Notification';
 
 const ProductAllPage = () => {
-
   let _isLoggedin = true;
   let _userType = 1;
   let isdiscounted = 0;
-  let userPoints = 10000;
-  // let user = JSON.parse(localStorage.getItem("user"));
-  // if (user) {
-  //   isLoggedin = user.isLoggedin;
-  //   userType = user.usertype;
-  // }
-
-
+  let userCredits = 10000;
+  
   const { subcategoryid } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [notification, setNotification] = useState({ message: '', show: false });
 
   useEffect(() => {
-
-    // let isLoggedin = localStorage.getItem("isLoggedin");
-    // if (!isLoggedin) {
-    //   navigate("/");
-    // }
-
-    // let userType = 0;
-    // let user = JSON.parse(localStorage.getItem("user"));
-    // if (user) {
-    //   userType = user.usertype;
-    // }
-
     const fetchProducts = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/products/subcategory/${subcategoryid}`);
@@ -55,6 +38,12 @@ const ProductAllPage = () => {
 
     fetchProducts();
   }, [subcategoryid]);
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    setNotification({ message: 'Product successfully added to cart', show: true });
+    setTimeout(() => setNotification({ ...notification, show: false }), 3000); // Hide after 3 seconds
+  };
 
   if (loading) {
     return <div><LoadingSpinner /></div>;
@@ -92,15 +81,14 @@ const ProductAllPage = () => {
                     <Card.Img className='card-product-img' src={product.imagepath} alt={product.name} />
                   </Col>
                   <Col>
-                    <h4><strong>{product.name}</strong></h4>
+                    <h4 id="product-name"><strong>{product.name}</strong></h4>
+                    <h5 id="product-description" style={{ color: "#a9a9a9" }}>({product.shortdesc})</h5>
                     <p className="fine-print">Brand: {product.brandname}</p>
-                    <p className="fine-print">In Stock: {product.stockquantity}</p>
+                    {product.stockquantity > 0 ? <p className="fine-print">In Stock: {product.stockquantity}</p> : <p className="fine-print">Out of Stock</p>}
                     <p><Rating value={product.rating} /></p>
-                    <h5 style={{ color: "#a9a9a9" }}>{product.shortdesc}</h5>
-                    
                     {_isLoggedin && _userType === 1 ? 
                       (isdiscounted === 0)? (
-                        <p className="price">₹{product.price - userPoints}{' + '}
+                        <p className="price">₹{product.price - userCredits}{' + '}
                         <img className='coin-32px' src={`${process.env.PUBLIC_URL}/assets/images/coin.png`} alt="Coin"></img>
                         {'10000'}</p>
                         ):(
@@ -115,7 +103,7 @@ const ProductAllPage = () => {
                     <button className="add-to-cart"
                       onClick={(e) => {
                         e.stopPropagation();
-                        addToCart(product); // Add product to cart
+                        handleAddToCart(product); // Add product to cart and show notification
                       }}
                       disabled={product.stockquantity <= 0}>Add to cart</button>
                     <button className="buy-now"
@@ -130,6 +118,7 @@ const ProductAllPage = () => {
           ))}
         </Row>
       </Container>
+      <Notification message={notification.message} show={notification.show} />
     </div>
   );
 };

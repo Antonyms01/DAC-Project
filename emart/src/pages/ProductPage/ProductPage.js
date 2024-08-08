@@ -1,25 +1,26 @@
-// ProductPage.js
+// src/pages/ProductPage/ProductPage.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { useCart } from '../../context/CartContext'; // Import useCart
+import { useCart } from '../../context/CartContext';
 import './productpage.css';
 import Header from '../../components/Header/Header';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import Rating from '../../components/Rating/Rating';
-
+import Notification from '../../components/Notification/Notification';
 
 function ProductPage() {
   let _isLoggedin = true;
   let _userType = 1;
   let isdiscounted = 0;
-  let userPoints = 10000;
+  let userCredits = 10000;
 
   const { productId } = useParams();
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState(null);
   const [selectedStorage, setSelectedStorage] = useState(128);
-  const { addToCart } = useCart(); // Destructure addToCart from the useCart hook
+  const { addToCart } = useCart();
+  const [notification, setNotification] = useState({ message: '', show: false });
 
   useEffect(() => {
     async function fetchProduct() {
@@ -40,9 +41,10 @@ function ProductPage() {
   };
 
   const handleAddToCart = () => {
-    // Add the selected product to the cart
     if (product) {
       addToCart({ ...product, selectedStorage });
+      setNotification({ message: 'Product successfully added to cart', show: true });
+      setTimeout(() => setNotification({ ...notification, show: false }), 3000); // Hide after 3 seconds
     }
   };
 
@@ -81,7 +83,7 @@ function ProductPage() {
           <p><Rating value={product.rating} /></p>
           {_isLoggedin && _userType === 1 ? 
             (isdiscounted === 0)? (
-              <p className="price">₹{product.price - userPoints}{' + '}
+              <p className="price">₹{product.price - userCredits}{' + '}
               <img className='coin-32px' src={`${process.env.PUBLIC_URL}/assets/images/coin.png`} alt="Coin"></img>
               {'10000'}</p>
               ):(
@@ -118,6 +120,7 @@ function ProductPage() {
           <p className="fine-print">Delivery may take up to 6-7 days depending on the pincode</p>
         </div>
       </div>
+      <Notification message={notification.message} show={notification.show} />
     </div>
   );
 }

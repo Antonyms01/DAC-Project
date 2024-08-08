@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button'; 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Typography from '@mui/material/Typography';
@@ -13,9 +14,18 @@ import SearchBar from './SearchBar/SearchBar';
 
 const Header = () => {
   
-  let _isLoggedin = true;
-  let _userType = 1;
-  let userPoints = 10000;
+  const user = JSON.parse(localStorage.getItem('user'));
+  const token = localStorage.getItem('token');
+
+  const _isLoggedin = token ? true : false;
+  const _userType = user ? user.userType : 0;
+  const _userCredits = user ? user.credits : 0;
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.location.reload();
+  };
 
   return (
     <AppBar position="static" >
@@ -26,17 +36,35 @@ const Header = () => {
         {_isLoggedin && _userType === 1 ? (
           <>
             <img src={`${process.env.PUBLIC_URL}/assets/images/coin.png`} alt="Coin" className='coin' />
-            <input type='text' disabled value={userPoints} className='coin-value' />
+            <input type='text' disabled value={_userCredits} className='coin-value' />
           </>
         ):(
           <></>
         )}
         <Typography variant='h4' className='emart-typography'>
         </Typography>
+        {_isLoggedin && _userType === 1 ? (
+          <div  style={{ color: 'black', marginRight: '20px'}}>
+            Welcome, {user.name}
+          </div>
+        ):(
+          //remove div content if user is not logged in
+          <div  style={{ color: 'black', marginRight: '10px'}}>
+            Welcome, 
+          </div>
+        )}
         <SearchBar />
-        <Link to="/signup" className='linkto-textbutton'>
-          Sign Up
-        </Link>
+        {_isLoggedin && _userType === 1 ? (
+          <Button onClick={handleLogout} className='linkto-textbutton'>
+            Logout
+          </Button>
+        ):(
+          //remove div content if user is not logged in
+          <Link to="/signup" className='linkto-textbutton'>
+            Sign Up
+          </Link>
+        )}
+        
         <Link to="/orders" className='linkto-textbutton'>
           Orders
         </Link>

@@ -13,8 +13,8 @@ const ShoppingCart = () => {
 
   let _isLoggedin = true;
   let _userType = 1;
-  let isdiscounted = 1;
-  let userPoints = 10000;
+  let isdiscounted = 0;
+  let userCredits = 10000;
 
 
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const ShoppingCart = () => {
     return cartItems.reduce((total, item) => total + 
     _isLoggedin && _userType === 1 ? 
       (isdiscounted === 0)? (
-        <>₹{(item.price.toFixed(2)-userPoints)* item.quantity}</>
+        <>₹{(item.price.toFixed(2)-userCredits)* item.quantity}</>
         ):(
           <>₹{(item.price - item.price*0.2)* item.quantity}</>
           )
@@ -67,7 +67,7 @@ const ShoppingCart = () => {
                         <p><strong>Each: </strong> 
                           {_isLoggedin && _userType === 1 ? 
                             (isdiscounted === 0)? (
-                              <>₹{item.price.toFixed(2) - userPoints}</>
+                              <>₹{item.price.toFixed(2) - userCredits}</>
                               //calculateEPointsTotal()
                               ):(
                                 <>₹{item.price - item.price*0.2}</>
@@ -96,7 +96,7 @@ const ShoppingCart = () => {
                         <p><strong>Total: </strong> 
                           {_isLoggedin && _userType === 1 ? 
                             (isdiscounted === 0)? (
-                              <>₹{(item.price.toFixed(2)-userPoints)* item.quantity}</>
+                              <>₹{(item.price.toFixed(2)-userCredits)* item.quantity}</>
                               ):(
                                 <>₹{(item.price - item.price*0.2)* item.quantity}</>
                                 )
