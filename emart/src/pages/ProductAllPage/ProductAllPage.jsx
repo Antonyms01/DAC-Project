@@ -39,6 +39,11 @@ const ProductAllPage = () => {
   }, [subcategoryid]);
 
   const handleAddToCart = (product) => {
+    if (checkboxState[product.productId] && userCredits < 100) {
+      setNotification({ message: 'Not enough credits to apply discount', show: true });
+      return;
+    }
+
     const price = (_isLoggedin && _userType === 1) ? 
                     product.isdiscounted === 1 ? 
                       product.price - product.price * 0.1 
@@ -49,11 +54,17 @@ const ProductAllPage = () => {
                         product.price
                   :
                     product.price;
+                    
     const cartProduct = { 
       ...product, 
       price, 
-      key: `${product.productId}-${checkboxState[product.productId]}` // Unique key for the cart item based on checkbox state
+      key: `${product.productId}-${checkboxState[product.productId]}`, // Unique key for the cart item based on checkbox state
+      appliedCredits: checkboxState[product.productId] ? 100 : 0,  // Indicate whether credits were applied
     };
+
+    if (checkboxState[product.productId]) {
+      userCredits -= 100;  // Deduct credits if applied
+    }
 
     addToCart(cartProduct);
     setNotification({ message: 'Product successfully added to cart', show: true });
@@ -122,7 +133,7 @@ const ProductAllPage = () => {
                           </div>
                         ) : (
                           <div>
-                            <h5>₹{product.price}</h5>
+                            <p className='price-s'>₹{product.price}</p>
                             <div>
                               <Form.Check type="checkbox" name="epoint" style={{ display: 'inline-block', marginRight: '10px' }}
                                 checked={checkboxState[product.productId] || false}

@@ -56,9 +56,16 @@ function ProductPage() {
       const cartProduct = { 
         ...product, 
         price, 
-        key: `${product.productId}-${checkboxState}` // Unique key for the cart item based on checkbox state
+        key: `${product.productId}-${checkboxState}`, // Unique key for the cart item based on checkbox state
+        // appliedCredits: checkboxState ? _userCredits - 100 : 0; //if you decrementing credit on product page
+        appliedCredits: checkboxState
       };
       addToCart(cartProduct);
+      // if (checkboxState) {
+      //   // Deduct credits
+      //   _userCredits -= 100;
+      //   localStorage.setItem('user', JSON.stringify({ ...user, epoint: _userCredits }));
+      // }
       setCheckboxState(false);
       setNotification({ message: 'Product successfully added to cart', show: true });
       setTimeout(() => setNotification({ ...notification, show: false }), 3000); // Hide after 3 seconds
@@ -115,7 +122,7 @@ function ProductPage() {
           {_isLoggedin && _userType === 1 ? 
             (product.isdiscounted === 0)? (
               <div>
-                <h5>₹{product.price}</h5>
+                <p className='price-s'>₹{product.price}</p>
                 <div>
                   <Form.Check type="checkbox" name="epoint" style={{ display: 'inline-block', marginRight: '10px' }}
                     checked={checkboxState}

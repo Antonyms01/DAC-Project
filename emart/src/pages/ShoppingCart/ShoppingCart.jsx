@@ -12,20 +12,25 @@ const ShoppingCart = () => {
   const navigate = useNavigate();
   const { cartItems, incrementItem, decrementItem, removeFromCart } = useCart();
 
+  const _isLoggedin = true;
+  const _userType = 1; 
+  const _userCredits = 100; 
+  let _totalCredits = 0;
+
   const handleContinueShopping = () => {
     navigate('/', { replace: true });
   };
 
   const calculateTotal = () => {
-    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
+    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
   };
 
   return (
     <div>
       <Header />
-      {(cartItems.length === 0) ? <EmptyCart /> : (
+      {cartItems.length === 0 ? <EmptyCart /> : (
         <Container className="row-shopping-cart">
-          <Row className="">
+          <Row>
             <div>
               <h2>Your Cart</h2>
               <p>{cartItems.length} items in your cart</p>
@@ -40,28 +45,42 @@ const ShoppingCart = () => {
                       </Col>
                       <Col>
                         <h5>{item.name}</h5>
-                        <p><strong>Each: </strong> 
-                        ₹{item.price.toFixed(2)}
+                        <p>
+                          <strong>Each: </strong>₹{item.price.toFixed(2)}
+                          {item.appliedCredits && _isLoggedin && _userType === 1 ? (
+                            <>
+                              {' + '}
+                              <img className='coin-32px' src={`${process.env.PUBLIC_URL}/assets/images/coin.png`} alt="Coin" />
+                              {'100'}
+                            </>
+                          ) : null}
                         </p>
                         <Form.Group as={Row} controlId={`quantity-${item.key}`} className="quantity-control">
-                          <Form.Label column sm="2">
-                            Quantity:
-                          </Form.Label>
+                          <Form.Label column sm="2">Quantity:</Form.Label>
                           <div className='quantity-div'>
-                            <button type="button" className="quantity-button"
-                              onClick={() => decrementItem(item.key)}>
+                            <button type="button" className="quantity-button" onClick={() => decrementItem(item.key)}>
                               -
                             </button>
-                            <Form.Control
-                              type="number" value={item.quantity} readOnly className="quantity-input" />
-                            <button type="button" className="quantity-button"
-                              onClick={() => incrementItem(item.key)}>
+                            <Form.Control type="number" value={item.quantity} readOnly className="quantity-input" />
+                            <button type="button" className="quantity-button" onClick={() => incrementItem(item.key)}>
                               +
                             </button>
                           </div>
                         </Form.Group>
-                        <p><strong>Total: </strong> 
-                        ₹{(item.price * item.quantity).toFixed(2)}
+                        <p>
+                          <strong>Total: </strong>₹{(item.price * item.quantity).toFixed(2)}
+                          {item.appliedCredits && _isLoggedin && _userType === 1 ? (
+                            <>
+                              {' + '}
+                              <img className='coin-32px' src={`${process.env.PUBLIC_URL}/assets/images/coin.png`} alt="Coin" />
+                              {_totalCredits = 100 * item.quantity}
+                              {_totalCredits > _userCredits && (
+                                <span className='text-danger'>
+                                  {` (Not enough credits by ${_totalCredits - _userCredits})`}
+                                </span>
+                              )}
+                            </>
+                          ) : null}
                         </p>
                         <Button className="custom-delete-button" onClick={() => removeFromCart(item.key)}>
                           <FontAwesomeIcon icon={faTrash} /> Remove
@@ -86,8 +105,9 @@ const ShoppingCart = () => {
                   <ListGroup.Item>Estimated Sales Tax <span className="float-end">TBD</span></ListGroup.Item>
                   <ListGroup.Item><strong>Estimated Total</strong> <span className="float-end"><strong>₹{calculateTotal()}</strong></span></ListGroup.Item>
                 </ListGroup>
-                <Button className="w-100 mt-3 checkout-button"
-                  onClick={() => navigate('/thankyou')}>CHECKOUT</Button>
+                <Button className="w-100 mt-3 checkout-button" onClick={() => navigate('/thankyou')}>
+                  CHECKOUT
+                </Button>
               </div>
             </Col>
           </Row>

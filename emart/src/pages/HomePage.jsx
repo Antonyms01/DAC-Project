@@ -36,11 +36,11 @@ const HomePage = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const handleCategorySelect = (categoryId) => {
-    setSelectedCategory(categoryId, { replace: true });
+    setSelectedCategory(categoryId);
   };
 
   const handleBackToCategories = () => {
-    setSelectedCategory(null, { replace: true });
+    setSelectedCategory(null);
   };
 
   return (

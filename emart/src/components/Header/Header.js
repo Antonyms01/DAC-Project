@@ -54,12 +54,11 @@ const Header = () => {
           </div>
         )}
         <SearchBar />
-        {_isLoggedin && _userType === 1 ? (
+        {_isLoggedin ? (
           <Button onClick={handleLogout} className='linkto-textbutton'>
             Logout
           </Button>
         ):(
-          //remove div content if user is not logged in
           <Link to="/signup" className='linkto-textbutton'>
             Sign Up
           </Link>

@@ -29,7 +29,7 @@ const Categories = ({ onSelectCategory }) => {
           <Card className='card-category'
             key={category.categoryId} // Ensure it matches your data structure
             border="primary"
-            onClick={() => onSelectCategory(category.categoryId, category.categoryName, { replace: true })} // Pass both ID and name
+            onClick={() => onSelectCategory(category.categoryId, category.categoryName)} // Pass both ID and name
           >
             <Card.Img
               variant="top"
