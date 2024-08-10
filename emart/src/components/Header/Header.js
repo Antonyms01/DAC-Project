@@ -1,4 +1,3 @@
-// src/components/Header.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
@@ -11,15 +10,15 @@ import Typography from '@mui/material/Typography';
 import './header.css';
 import SearchBar from './SearchBar/SearchBar';
 
-
 const Header = () => {
-
-  const user = JSON.parse(localStorage.getItem('user'));
+  // Safely retrieve the user data
+  const userString = localStorage.getItem('user');
+  const user = userString ? JSON.parse(userString) : null;
   const token = localStorage.getItem('token');
 
-  const _isLoggedin = token ? true : false;
-  const _userType = user ? user.userType : 0;
-  const _userCredits = user ? user.epoint : 0;
+  const _isLoggedin = Boolean(token);  // Checks if token exists
+  const _userType = user ? user.usertype : 0;  // Adjusted the key to match your usage
+  const _userCredits = _isLoggedin && _userType === 1 ? user.epoint : 0;
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -48,7 +47,6 @@ const Header = () => {
             Welcome, {user.name}
           </div>
         ):(
-          //remove div content if user is not logged in
           <div  style={{ color: 'black', marginRight: '10px'}}>
             Welcome, 
           </div>

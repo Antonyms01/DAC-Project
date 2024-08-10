@@ -26,7 +26,7 @@ const carouselItems = [
     brand: '/assets/images/brandlogo/lg-logo.png',
     product: 'LG UHD 4K TVs',
     offer: 'Up to 15% off Voucher',
-    link: '/product/6',
+    link: '/product/0',
     imageSrc: '/assets/images/banner/tv-banner.png', // Ensure correct image path
     altText: 'LG UHD'
   },

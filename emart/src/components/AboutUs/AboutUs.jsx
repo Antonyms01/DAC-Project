@@ -5,7 +5,7 @@ const AboutUs = () => {
   return (
     <div className="about-container">
       <div className="about-left">
-        <h1>about</h1>
+        <h1>about Us</h1>
         <h3>"Shop Smart, Live Better."</h3>
       </div>
       <div className="about-right">

@@ -5,6 +5,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './signpage.css';
 
+///////////if user already exists stop sign up//////////
+
 function SignUpPage() {
   const [formData, setFormData] = useState({
     username: '',
@@ -46,7 +48,7 @@ function SignUpPage() {
     try {
       const response = await axios.post('http://localhost:8080/users/signup', {
         username: formData.username,
-        user_email: formData.useremail,
+        useremail: formData.useremail,
         password: formData.password,
         usertype: formData.usertype ? 1 : 0,
         epoint: formData.usertype ? 100 : 0
@@ -56,7 +58,8 @@ function SignUpPage() {
         const { token, user } = response.data;
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
-        navigate('/', { replace: true });
+        navigate('/signin', { replace: true });
+        // navigate('/', { replace: true });
       } else {
         setPasswordError('SignUp Failed');
       }

@@ -25,19 +25,35 @@ function SignInPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await axios.post('http://localhost:8080/users/signin', {
-        user_email: formData.useremail,
+      // First, check if the user exists
+      const emailCheckResponse = await axios.get(`http://localhost:8080/users`, {
+        params: {
+          useremail: formData.useremail,
+        },
+      });
+
+      if (emailCheckResponse.status === 404) {
+        setError('User doesn’t exist');
+        return;
+      }
+
+      // If the user exists, verify the password
+      const loginResponse = await axios.post('http://localhost:8080/users/login', {
+        useremail: formData.useremail,
         password: formData.password,
       });
 
-      if (response.status === 200) {
-        const { token, user } = response.data;
+      if (loginResponse.status === 200) {
+        const { token, user } = loginResponse.data;
+        // Save token and user information to local storage
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
+        // Redirect to the home page
         navigate('/', { replace: true });
-      } else {
-        setError('SignIn Failed');
+      } else if (loginResponse.status === 401) {
+        setError('Wrong Password');
       }
     } catch (error) {
       setError('Error occurred during signin. Please try again.');
