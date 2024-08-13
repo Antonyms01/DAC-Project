@@ -27,37 +27,34 @@ function SignInPage() {
     e.preventDefault();
 
     try {
-      // First, check if the user exists
-      const emailCheckResponse = await axios.get(`http://localhost:8080/users`, {
-        params: {
-          useremail: formData.useremail,
-        },
-      });
-
-      if (emailCheckResponse.status === 404) {
-        setError('User doesn’t exist');
-        return;
-      }
-
-      // If the user exists, verify the password
       const loginResponse = await axios.post('http://localhost:8080/users/login', {
         useremail: formData.useremail,
         password: formData.password,
+        
       });
 
       if (loginResponse.status === 200) {
-        const { token, user } = loginResponse.data;
-        // Save token and user information to local storage
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(user));
-        // Redirect to the home page
+        const userData = loginResponse.data;
+        
+        // Save user data to local storage
+        localStorage.setItem('user', JSON.stringify(userData));
+        
+        // Redirect to the home page or any other route
         navigate('/', { replace: true });
-      } else if (loginResponse.status === 401) {
-        setError('Wrong Password');
-      }
+       
+      } 
     } catch (error) {
-      setError('Error occurred during signin. Please try again.');
-    }
+      
+      // Check if the error response is available and handle different cases
+      if (error.response && error.response.status === 404) {
+         setError('User doesn’t exist');
+      } else if (error.response && error.response.status === 401) {
+         setError('Wrong pass');
+      } else {
+         setError('Invalid credentials. Please try again.');
+      }
+   }
+   
   };
 
   return (
